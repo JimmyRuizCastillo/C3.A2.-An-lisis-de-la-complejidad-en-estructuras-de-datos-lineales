@@ -1,22 +1,29 @@
 import LinkedList from "../models/LinkedList.js"
 let list = new LinkedList()
 //let root = document.getElementById("list-bussines")
-const rute = "./controllers/bussines.json"
+const rute = "./src/controllers/bussines.json"
 //console.time("medicion 1")
-fetch(rute)
-.then(response => response.json())
-.then(data => {
-    //En esta parte unicamente se muestran los primeros 100 registros
-    /*
-    for (let x=0;x<10;x++) {
-        let name = data[x].name
-        lista.add(name)
-    }
-    */
+let startTime = 0
+let finalTime = 0
 
-    let arrayData = [];
-        
-        console.time("LinkedList Insertion")
+
+all()
+
+function all(){
+    fetch(rute)
+    .then(response => response.json())
+    .then(data => {
+        //En esta parte unicamente se muestran los primeros 100 registros
+        /*
+        for (let x=0;x<10;x++) {
+            let name = data[x].name
+            lista.add(name)
+        }
+        */
+
+        let arrayData = [];
+
+        startTime = performance.now()
         for (let i = 0; i < 10000; i++) {
             list.add(data[i].name)
         }
@@ -25,56 +32,121 @@ fetch(rute)
             list.add(element)
         });
         */
-        console.timeEnd("LinkedList Insertion")
+        finalTime = performance.now()
+
+        let finalTimeLindkedInsert = finalTime - startTime
 
         //let finalTimeLindkedInsert = console.time("LinkedList Insertion") - console.timeEnd("LinkedList Insertion")
 
-        console.time("LinkedList bubbleSort")
+        startTime = performance.now()
         list.bubbleSort()
-        console.timeEnd("LinkedList bubbleSort")
+        finalTime = performance.now()
+
+        let finalTimeLinkedBubble = finalTime - startTime
 
         //let finalTimeLinkedBubble = console.time("LinkedList Insertion") - console.timeEnd("LinkedList Insertion")
 
-        console.time("LinkedList mergeSort")
+        startTime = performance.now()
         list.mergeSort()
-        console.timeEnd("LinkedList mergeSort")
+        finalTime = performance.now()
+        let finalTimeLinkedMerge = finalTime - startTime
 
         //let finalTimeLinkedMerge = console.time("LinkedList Insertion") - console.timeEnd("LinkedList Insertion")
 
-        console.time("LinkedList radixSort")
+        startTime = performance.now()
         list.radixSort()
-        console.timeEnd("LinkedList radixSort")
+        finalTime = performance.now()
+        let finalTimeLinkedRadix = finalTime - startTime
 
         //let finalTimeLinkedRadix = console.time("LinkedList Insertion") - console.timeEnd("LinkedList Insertion")
 
-        console.time("Array Insertion")
+        startTime = performance.now()
         for (let i = 0; i < 10000; i++) {
             arrayData.push(data[i].name)
         }
-        console.timeEnd("Array Insertion")
+        finalTime = performance.now()
+
+        let finalTimeArrayInsert = finalTime - startTime
 
         //let finalTimeArrayInsert = console.time("LinkedList Insertion") - console.timeEnd("LinkedList Insertion")
 
-        console.time("Array bubbleSort")
+        startTime = performance.now()
         bubbleSort(arrayData)
-        console.timeEnd("Array bubbleSort")
+        finalTime = performance.now()
+        let finalTimeArrayBubble = finalTime - startTime
 
         //let finalTimeArrayBubble = console.time("LinkedList Insertion") - console.timeEnd("LinkedList Insertion")
 
-        console.time("Array mergeSort")
+        startTime = performance.now()
         mergeSort(arrayData)
-        console.timeEnd("Array mergeSort")
+        finalTime = performance.now()
+        let finalTimeArrayMerge = finalTime - startTime
 
         //let finalTimeArrayMerge = console.time("LinkedList Insertion") - console.timeEnd("LinkedList Insertion")
 
-        console.time("Array radixSort")
+        startTime = performance.now()
         radixSort(arrayData)
-        console.timeEnd("Array radixSort")
+        finalTime = performance.now()
+        let finalTimeArrayRadix = finalTime - startTime
+        graphInsert(finalTimeLindkedInsert.toFixed(3), finalTimeArrayInsert.toFixed(3), "Insert LinkedList", "Insert Array")
+        graphBubble(finalTimeLinkedBubble.toFixed(3), finalTimeArrayBubble.toFixed(3), "Bubble LinkedList", "Bubble Array")
+        graphMerge(finalTimeLinkedMerge.toFixed(3), finalTimeArrayMerge.toFixed(3), "Merge LinkedList", "Merge Array")
+        graphRadix(finalTimeLinkedRadix.toFixed(3), finalTimeArrayRadix.toFixed(3), "Radix LinkedList", "Radix Array")
 
         //let finalTimeArrayRadix = console.time("LinkedList Insertion") - console.timeEnd("LinkedList Insertion")
 
-}).catch(err => console.log(err))
+    }).catch(err => console.log(err))
+}
+
+function graphInsert(timeLinkedList, timeArray, lblLinkedList, lblArray){
+    let id = document.getElementById("insertChart")
+    graph("Tiempo de ejecucion Insertar",id,timeLinkedList, timeArray, lblLinkedList, lblArray)
+}
+
+function graphBubble(timeLinkedList, timeArray, lblLinkedList, lblArray){
+    let id = document.getElementById("bubbleChart")
+    graph("Tiempo de ejecucion Burbuja",id,timeLinkedList, timeArray, lblLinkedList, lblArray)
+}
+
+function graphMerge(timeLinkedList, timeArray, lblLinkedList, lblArray){
+    let id = document.getElementById("mergeChart")
+    graph("Tiempo de ejecucion Merge",id,timeLinkedList, timeArray, lblLinkedList, lblArray)
+}
+
+function graphRadix(timeLinkedList, timeArray, lblLinkedList, lblArray){
+    let id = document.getElementById("radixChart")
+    graph("Tiempo de ejecucion Radix",id,timeLinkedList, timeArray, lblLinkedList, lblArray)
+}
+
 //console.timeEnd("medicion 1")
+
+function graph(tittle,id,finalTimeLindkedInsert, finalTimeArrayInsert, lblLinkedList, lblArray) {
+    const ctx = id
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [lblLinkedList,lblArray],
+            datasets: [{
+                label: tittle,
+                data: [finalTimeLindkedInsert,finalTimeArrayInsert],
+                backgroundColor:['rgba(25, 111, 61, 1)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: value => value + "ms"
+                      }
+                }
+            }
+        }
+    })
+}
+
 
 function bubbleSort(array) {
     let len = array.length
