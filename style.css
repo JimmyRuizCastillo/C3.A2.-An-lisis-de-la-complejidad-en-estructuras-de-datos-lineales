@@ -1,0 +1,93 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    background-color: rgba(25, 111, 61, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    position: sticky;
+    z-index: 100;
+}
+
+.left-header {
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.input-search-header {
+    display: flex;
+    align-items: center;
+    margin-right: 210px;
+}
+
+#search-input {
+    padding: 10px 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 300px;
+}
+
+.search-button {
+    padding: 10px 10px;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: #f5f5f5;
+    color: rgba(25, 111, 61, 1);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: rgb(38, 207, 109);
+}
+
+.logo img {
+    height: 80px;
+    width: 100px;
+    margin-left: 290px;
+    background: #f5f5f5;
+    border-radius: 50%;
+}
+
+.chart-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    width: 50%;
+    height: 80vh;
+    margin-right: 100px;
+    margin-top: 70px;
+}
+
+.chart-section div {
+    height: 200px;
+    width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border: 1px solid #ccc;
+}

@@ -146,11 +146,11 @@ class LinkedList {
     let current = this.#head
     while (current) {
       if (current.value === target) {
-        return current.value
+        return true
       }
       current = current.next
     }
-    return null
+    return false
   }
 }
 
