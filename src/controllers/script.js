@@ -7,6 +7,8 @@ let startTime = 0
 let finalTime = 0
 
 
+
+
 all()
 
 function all(){
@@ -21,6 +23,8 @@ function all(){
         }
         */
 
+        
+        let btnSearch = document.getElementById("btnSearch")
         let arrayData = [];
 
         startTime = performance.now()
@@ -34,7 +38,7 @@ function all(){
         */
         finalTime = performance.now()
 
-        let finalTimeLindkedInsert = finalTime - startTime
+        let finalTimeLindkedInsert = Number(finalTime - startTime).toFixed(5)
 
         //let finalTimeLindkedInsert = console.time("LinkedList Insertion") - console.timeEnd("LinkedList Insertion")
 
@@ -88,14 +92,41 @@ function all(){
         radixSort(arrayData)
         finalTime = performance.now()
         let finalTimeArrayRadix = finalTime - startTime
-        graphInsert(finalTimeLindkedInsert.toFixed(3), finalTimeArrayInsert.toFixed(3), "Insert LinkedList", "Insert Array")
-        graphBubble(finalTimeLinkedBubble.toFixed(3), finalTimeArrayBubble.toFixed(3), "Bubble LinkedList", "Bubble Array")
-        graphMerge(finalTimeLinkedMerge.toFixed(3), finalTimeArrayMerge.toFixed(3), "Merge LinkedList", "Merge Array")
-        graphRadix(finalTimeLinkedRadix.toFixed(3), finalTimeArrayRadix.toFixed(3), "Radix LinkedList", "Radix Array")
+        graphInsert(finalTimeLindkedInsert, finalTimeArrayInsert.toFixed(5), "Insert LinkedList", "Insert Array")
+        graphBubble(finalTimeLinkedBubble.toFixed(5), finalTimeArrayBubble.toFixed(5), "Bubble LinkedList", "Bubble Array")
+        graphMerge(finalTimeLinkedMerge.toFixed(5), finalTimeArrayMerge.toFixed(5), "Merge LinkedList", "Merge Array")
+        graphRadix(finalTimeLinkedRadix.toFixed(5), finalTimeArrayRadix.toFixed(5), "Radix LinkedList", "Radix Array")
 
+        btnSearch.addEventListener("click",()=>{
+            let inputSearch = document.getElementById("search-input").value
+            console.log(inputSearch)
+            search(list,arrayData,inputSearch,startTime,finalTime)
+        })
         //let finalTimeArrayRadix = console.time("LinkedList Insertion") - console.timeEnd("LinkedList Insertion")
 
     }).catch(err => console.log(err))
+}
+
+function search(list, array, input, start, end){
+    start = performance.now().toPrecision()
+    let searchList = list.searchLinkedList(input)
+    end = performance.now().toPrecision()
+    let finalTimeSearchLinkedList = end - start
+    start = performance.now().toPrecision()
+    console.log(start)
+    console.time("A")
+    let searchArr = searchArray(array,input)
+    console.timeEnd("A")
+    end = performance.now().toPrecision()
+    console.log(end)
+    let finalTimeSearchArray = end - start
+    if(searchList && searchArr){
+        graphSearch(finalTimeSearchLinkedList,finalTimeSearchArray,"Busqueda LinkedList", "Busqueda Array")
+    }
+    else{
+        alert("NO")
+    }
+    
 }
 
 function graphInsert(timeLinkedList, timeArray, lblLinkedList, lblArray){
@@ -118,9 +149,9 @@ function graphRadix(timeLinkedList, timeArray, lblLinkedList, lblArray){
     graph("Tiempo de ejecucion Radix",id,timeLinkedList, timeArray, lblLinkedList, lblArray)
 }
 
-function graphSearch(){
+function graphSearch(timeLinkedList, timeArray, lblLinkedList, lblArray){
     let id = document.getElementById("searchChart")
-    graph("Tiempo de ejecucion de busqueda",id,)
+    graph("Tiempo de ejecucion de busqueda",id,timeLinkedList,timeArray,lblLinkedList,lblArray)
 }
 
 //console.timeEnd("medicion 1")
@@ -209,8 +240,8 @@ function radixSort(array) {
 function searchArray(array, target) {
     for (let i = 0; i < array.length; i++) {
         if (array[i] === target) {
-            return array[i]
+            return true
         }
     }
-    return null
+    return false
 }

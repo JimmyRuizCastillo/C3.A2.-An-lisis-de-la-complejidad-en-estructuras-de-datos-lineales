@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Sort-Algoritms</title>
 </head>
-
 <body>
-    <div>
-        <canvas id="insertChart"></canvas>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <img src="./src/assets/img/logosortal.png" alt="Logo" />
+            </div>
+            <div class="left-header">
+                <div class="input-search-header">
+                    <input type="text" id="search-input" placeholder="Ingrese un Nombre">
+                    <button class="search-button" id="btnSearch">Buscar</button>
+                </div>
+            </div>
+        </header>
+        <section class="chart-section">
+            <div>
+                <canvas id="insertChart"></canvas>
+            </div>
+            <div>
+                <canvas id="bubbleChart"></canvas>
+            </div>
+            <div>
+                <canvas id="mergeChart"></canvas>
+            </div>
+            <div>
+                <canvas id="radixChart"></canvas>
+            </div>
+            <div>
+                <canvas id="searchChart"></canvas>
+            </div>
+        </section>
     </div>
-
-    <div>
-        <canvas id="bubbleChart"></canvas>
-    </div>
-
-    <div>
-        <canvas id="mergeChart"></canvas>
-    </div>
-
-    <div>
-        <canvas id="radixChart"></canvas>
-    </div>
-
-    <div>
-        <input type="text" id="inpSearch" placeholder="Nombre">
-        <button>BUSCAR</button>
-    </div>
-
-    <div>
-        <canvas id="searchChart"></canvas>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script type="module" src="./src/controllers/script.js"></script>
 </body>
-
 </html>
