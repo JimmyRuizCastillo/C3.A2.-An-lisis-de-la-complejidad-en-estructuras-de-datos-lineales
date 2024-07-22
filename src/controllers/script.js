@@ -118,6 +118,11 @@ function graphRadix(timeLinkedList, timeArray, lblLinkedList, lblArray){
     graph("Tiempo de ejecucion Radix",id,timeLinkedList, timeArray, lblLinkedList, lblArray)
 }
 
+function graphSearch(){
+    let id = document.getElementById("searchChart")
+    graph("Tiempo de ejecucion de busqueda",id,)
+}
+
 //console.timeEnd("medicion 1")
 
 function graph(tittle,id,finalTimeLindkedInsert, finalTimeArrayInsert, lblLinkedList, lblArray) {
